@@ -1,6 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { FaLocationDot, FaCalendarDays, FaClock } from "react-icons/fa6";
+
+const isPostHogConfigured = Boolean(
+    process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+    process.env.NEXT_PUBLIC_POSTHOG_HOST,
+);
 
 type Props = {
     image: string;
@@ -19,21 +27,30 @@ const EventCard = ({
     date,
     time,
 }: Props) => {
+    const handleEventSelection = () => {
+        if (isPostHogConfigured) {
+            posthog.capture("featured_event_selected", {
+                event_slug: slug,
+            });
+        }
+    };
+
     return (
         <Link
             href={`/events/${slug}`}
             id="event-card"
-            className="card block w-full overflow-hidden rounded-xl"
+            className="card block w-full overflow-hidden rounded-xl shadow-[0_8px_30px_rgba(255,255,255,0.09)]"
+            onClick={handleEventSelection}
         >
             <Image
                 src={image}
                 alt={title}
                 width={410}
                 height={300}
-                className="h-auto w-full object-cover"
-            />
+                className="aspect-[410/300] h-auto w-full object-cover"
+             />
 
-            <div className="py-4">
+            <div className="p-4">
                 <div className="flex flex-row gap-2 items-center text-xs font-light">
                     <FaLocationDot className="text-gray-400 " />
                     <span>{location}</span>
