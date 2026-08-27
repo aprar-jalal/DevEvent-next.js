@@ -41,7 +41,7 @@ export default function RootLayout({
           />
         </div>
 
-        <main className="relative z-10 pt-60">{children}</main>
+        <main className="relative z-10 pt-40">{children}</main>
       </body>
     </html>
   );

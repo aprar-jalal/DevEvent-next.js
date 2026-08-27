@@ -36,41 +36,41 @@ const EventCard = ({
     };
 
     return (
-        <Link
-            href={`/events/${slug}`}
-            id="event-card"
-            className="card block w-full overflow-hidden rounded-xl shadow-[0_8px_30px_rgba(255,255,255,0.09)]"
-            onClick={handleEventSelection}
-        >
+     <Link
+  href={`/events/${slug}`}
+  className="card flex h-full w-full flex-col overflow-hidden rounded-xl"
+  onClick={handleEventSelection}
+>
             <Image
                 src={image}
                 alt={title}
                 width={410}
                 height={300}
                 className="aspect-[410/300] h-auto w-full object-cover"
-             />
+            />
 
-            <div className="p-4">
-                <div className="flex flex-row gap-2 items-center text-xs font-light">
-                    <FaLocationDot className="text-gray-400 " />
-                    <span>{location}</span>
-                </div>
-                <p className="title mb-4 text-xl font-bold text-white mt-2">
-                    {title}
-                </p>
+            <div className="flex flex-1 flex-col p-4">
+  <div className="flex items-center gap-2 text-xs font-light">
+    <FaLocationDot className="text-gray-400" />
+    <span>{location}</span>
+  </div>
 
-                <div className="flex flex-row gap-3 text-xs text-gray-400">
-                    <div className="flex items-center gap-2">
-                        <FaCalendarDays />
-                        <span>{date}</span>
-                    </div>
+  <p className="title mt-2 mb-4 text-xl font-bold text-white">
+    {title}
+  </p>
 
-                    <div className="flex items-center gap-2">
-                        <FaClock />
-                        <span>{time}</span>
-                    </div>
-                </div>
-            </div>
+  <div className="mt-auto flex flex-row gap-3 text-xs text-gray-400">
+    <div className="flex items-center gap-2">
+      <FaCalendarDays />
+      <span>{date}</span>
+    </div>
+
+    <div className="flex items-center gap-2">
+      <FaClock />
+      <span>{time}</span>
+    </div>
+  </div>
+</div>
         </Link>
     );
 };
