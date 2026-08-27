@@ -1,8 +1,14 @@
 import EventCard from "@/components/Card/eventCard";
 import ExploreMore from "./../components/buttons/exploreMore";
+import { IEvent } from "@/models/Event";
+import { cacheLife } from "next/cache";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const Page = async () => {
-   const response = await fetch("http://localhost:3000/api/events");
+  "use cache";
+  cacheLife('hours')
+   const response = await fetch(`${BASE_URL}/api/events?limit=6`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch events");
@@ -13,7 +19,7 @@ const Page = async () => {
   console.log("events:", events);
 
   return (
-    <section className="w-full px-4 sm:px-8">
+    <section className="w-full px-4 sm:px-8 mt-20">
       <h1 className="hero-title">
         The Hub For Every Dev <br />
         <span>Event You Can Not Miss</span>
@@ -30,15 +36,13 @@ const Page = async () => {
           Featured Events
         </h3>
 
-        <ul className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((event) => (
-            <li key={event._id} className="w-full">
-              <EventCard
-                {...event}
-              />
-            </li>
-          ))}
-        </ul>
+        <ul className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-10">
+  {events.map((event: IEvent) => (
+    <li key={event.slug} className="h-full w-full">
+      <EventCard {...event} />
+    </li>
+  ))}
+</ul>
       </div>
     </section>
   );

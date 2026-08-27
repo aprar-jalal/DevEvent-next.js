@@ -10,7 +10,7 @@ const Navbar = () => {
                     className="flex shrink-0 items-center gap-2 sm:gap-3"
                 >
                     <Image
-                        src="/assets/images/logo.svg"
+                        src="/assets/images/logo1.png"
                         alt="Dev Event logo"
                         width={28}
                         height={28}

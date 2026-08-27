@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 export interface IEvent {
+ 
   title: string;
   slug: string;
   description: string;
