@@ -310,6 +310,28 @@ html {
 #book-event > p {
   @apply text-center text-sm font-medium text-white;
 }
+
+.form-group {
+  @apply flex flex-col gap-2 ;
+}
+
+.form-group label {
+  @apply text-sm font-medium text-white;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  @apply border border-white/20 bg-white/5 text-white rounded-md pl-2 p-2;
+}
+
+.form-group textarea {
+  @apply min-h-[140px];
+}
+
+.form-group select option {
+  @apply bg-black text-white;
+}
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);

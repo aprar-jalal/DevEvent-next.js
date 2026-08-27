@@ -3,6 +3,14 @@ import { v2 as cloudinary } from "cloudinary";
 import connectDB from "@/lib/mongodb";
 import Event from "@/models/Event";
 
+const generateSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+};
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
@@ -39,7 +47,14 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       );
     }
-
+   const title = formData.get("title");
+   if (typeof title !== "string" || !title.trim()) {
+  return NextResponse.json(
+    { message: "Title is required" },
+    { status: 400 }
+  );
+}
+const slug = generateSlug(title);
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const uploadResult = await new Promise<{ secure_url: string }>(
@@ -72,6 +87,7 @@ export async function POST(req: NextRequest) {
       image: uploadResult.secure_url,
       agenda: JSON.parse(eventData.agenda as string),
       tags: JSON.parse(eventData.tags as string),
+      slug:slug,
     });
     return NextResponse.json(
       {

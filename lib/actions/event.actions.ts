@@ -2,8 +2,11 @@
 
 import connectDB from "../mongodb";
 import Event from "@/models/Event";
+import { cacheLife } from "next/cache";
 
 export const getSimilarEventsBySlug = async (slug: string) => {
+  'use cache'
+   cacheLife('hours')
   try {
     await connectDB();
 
